@@ -1,4 +1,4 @@
-package solution;
+package instrument;
 
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
