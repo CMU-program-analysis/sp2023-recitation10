@@ -1,4 +1,4 @@
-package instrument;
+package solution;
 
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
@@ -20,9 +20,11 @@ public class CoverageClassVisitor extends ClassVisitor {
         return new MethodVisitor(API, super.visitMethod(access, name, desc, signature, exceptions)) {
             @Override
             public void visitLineNumber(int line, Label start) {
-                //TODO: Print the line number of each line that is run in the program!
-                //  (currently, this doesn't print anything)
                 super.visitLineNumber(line, start);
+
+                super.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
+                super.visitLdcInsn("covered line " + line);
+                super.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
             }
         };
     }
